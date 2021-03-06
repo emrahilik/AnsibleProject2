@@ -4,9 +4,13 @@ bootstrap_packages:
   - curl
   - wget
 
-app_packages:
+app_packages:  # we have to identify app packages 
+  - epel-release
   - httpd
   - mysql
+  
+php_package: 
+  - php72
 
 database_packages:
   - mariadb-server  # you have to check names of the packages on the documentation.

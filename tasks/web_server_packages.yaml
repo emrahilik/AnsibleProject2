@@ -3,3 +3,54 @@
   yum:
     name: "{{app_packages}}" # this values is coming from main_vars.yaml.
                              # Because we already defined them.
+    state: latest
+
+- name: Install Remi Repositories
+  when: ansible_facts['hostname'] == "web-server"
+  yum: 
+    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    state: present
+
+- name: Install yum-utils
+  when: ansible_facts['hostname'] == "web-server"
+  yum:
+    name: yum-utils
+    state: latest
+  
+
+
+- name: Enable remi-php72 repository
+  when: ansible_facts['hostname'] == "web-server"
+  yum_repository:
+    description: Extra Packages for Enterprise Linux 7 - $basearch
+    metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
+    name: remi-php72
+    enabled: yes 
+
+- name: Updated Repository on web-server
+  when: ansible_facts['hostname'] == "web-server"
+  yum: 
+    name: "*"
+    state: latest 
+
+- name: Install PHP7.2
+  when: ansible_facts['hostname'] == "web-server"
+  yum: 
+    name: "{{php_package}}"
+    state: present
+    enablerepo: "remi-*,epel,base"
+  
+
+
+    # You have to go "yum repos: On CentOS7"
+    # Location: ""/etc/yum.repos.d/""  you have to check 
+    # error 1> if you get the error >  you have to add the metalink 
+     # it comes from repository 
+    # fatal: [web-server]: FAILED! => {"changed": false, "msg": "Parameter 'baseurl', 'metalink' or 'mirrorlist' is required."}
+
+    # error2> if you get the error  > you have to add description 
+    # it comes from repository 
+    # fatal: [web-server]: FAILED! => {"changed": false, "msg": "Parameter 'description' is required."}
+
+
+    # ansible -i inventory.yaml web-server -m command -a "php -v" for checking php version using add-hoc command
