@@ -1,0 +1,12 @@
+facts: yes
+bootstrap_packages: 
+  - vim 
+  - curl
+  - wget
+
+app_packages:
+  - httpd
+  - mysql
+
+database_packages:
+  - mariadb-server  # you have to check names of the packages on the documentation.

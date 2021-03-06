@@ -1,0 +1,5 @@
+- name: Install Application Packages
+  when: ansible_facts['hostname'] == "web-server"
+  yum:
+    name: "{{app_packages}}" # this values is coming from main_vars.yaml.
+                             # Because we already defined them.

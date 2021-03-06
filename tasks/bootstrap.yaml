@@ -1,0 +1,24 @@
+- name: Updated Packages on web-server
+  when: ansible_facts['hostname'] == "web-server"
+  yum: 
+    name: "*"
+    state: latest 
+
+- name: Install Packages on web-server
+  when: ansible_facts['hostname'] == "web-server"
+  yum:
+    name: "{{bootstrap_packages}}"   # this values is coming from main_vars.yaml. 
+    state: latest                    # Because we already defined them.
+
+# ansible -i inventory.yaml all -m setup -a  "filter=ansible_hostname*"
+- name: Update Packages on database
+  when: ansible_facts['hostname'] == "database"
+  apt:
+    name: "*"  # you have to check exact module in documentation. 
+    state: latest
+
+- name: Install Packages on database
+  when: ansible_facts['hostname'] == "database"
+  apt:
+    name: "{{bootstrap_packages}}"     # this values is coming from main_vars.yaml
+    state: latest                      # Because we already defined them.

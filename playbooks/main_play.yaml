@@ -1,0 +1,10 @@
+  - name: Test Play 1
+    hosts: all 
+    gather_facts: "{{facts}}" 
+    vars_files:
+      - ../variables/main_vars.yaml
+    tasks: 
+      - include: ../tasks/ping.yaml  # you have to give the releative path ping.yaml file
+      - include: ../tasks/bootstrap.yaml
+      - include: ../tasks/web_server_packages.yaml
+      - include: ../tasks/database_packages.yaml
