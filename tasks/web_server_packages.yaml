@@ -39,7 +39,23 @@
     name: "{{php_package}}"
     state: present
     enablerepo: "remi-*,epel,base"
+
+
+- name: Download Wordpress - unarchive   # unarchive command will get the file from internet and download and unzip and save it under tmp
+  when: ansible_facts['hostname'] == "web-server"
+  unarchive: 
+    src: https://wordpress.org/latest.tar.gz
+    dest: /tmp/
+    remote_src: yes 
   
+- name: Copy  Wordpress files to /var/www/html - unarchive 
+  when: ansible_facts['hostname'] == "web-server"
+  copy:
+    src: /tmp/wordpress/
+    dest: /var/www/html
+    remote_src: yes
+    owner: apache
+    group: apache
 
 
     # You have to go "yum repos: On CentOS7"

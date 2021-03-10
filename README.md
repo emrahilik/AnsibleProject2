@@ -22,6 +22,8 @@ WordPress with Ansible
   # for php installation >
   # https://www.cyberciti.biz/faq/how-to-install-php-7-2-on-centos-7-rhel-7/  
 
+## README NEEDS TO BE UPDATED
+
 
 ## Notes
     

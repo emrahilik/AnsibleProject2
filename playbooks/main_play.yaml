@@ -1,5 +1,5 @@
   - name: Test Play 1
-    hosts: all 
+    hosts: all    # you can modify here and work on your specific server 
     gather_facts: "{{facts}}" 
     vars_files:
       - ../variables/main_vars.yaml
