@@ -9,8 +9,15 @@ app_packages:  # we have to identify app packages
   - httpd
   - mysql
   
-php_package: 
-  - php72
-
+php_package:    # you have to be sure that you listed all dependicies and packages under here 
+  - php 
+  - php-common 
+  - php-opcache 
+  - php-mcrypt 
+  - php-cli 
+  - php-gd 
+  - php-curl 
+  - php-mysql
+  
 database_packages:
   - mariadb-server  # you have to check names of the packages on the documentation.

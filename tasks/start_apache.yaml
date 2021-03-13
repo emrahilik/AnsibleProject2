@@ -1,0 +1,32 @@
+- name: Start Apache
+  when: ansible_facts['hostname'] == "web-server"
+  systemd:   # this is the module :))
+    name:  httpd
+    state: restarted 
+    enabled: yes 
+
+
+  # note 1 :  if apache does not work  you can follow steps:
+
+  # 1 systemctl status httpd
+  # 2 curl 167.71.106.68
+  # 3 cd /var/www/html/
+  # 4 ls -l
+  # 5 curl localhost
+  # 6 echo "hello" >> index.html 
+  # 7 curl localhost
+  # 8 rm -rf index.html 
+
+
+  # fetch : If you want to copy the file from one server to other server you have to use "fetch" 
+   
+  # note 2 : 
+
+  # if you need to update from php72 to php73 we can use it because we have rami :))
+     # sudo yum-config-manager ––enable remi–php73
+     # sudo yum install php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysql –y
+
+  #if you need to check wordpress version you can use > grep wp_version /var/www/html/wp-includes/version.php
+
+  # important note:  
+ 

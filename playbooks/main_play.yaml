@@ -4,7 +4,8 @@
     vars_files:
       - ../variables/main_vars.yaml
     tasks: 
-      - include: ../tasks/ping.yaml  # you have to give the releative path ping.yaml file
+      - include: ../tasks/ping.yaml  # if you create new task you  have to give the releative path in the playbooks.yaml file 
       - include: ../tasks/bootstrap.yaml
       - include: ../tasks/web_server_packages.yaml
       - include: ../tasks/database_packages.yaml
+      - include: ../tasks/start_apache.yaml 

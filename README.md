@@ -21,6 +21,8 @@ WordPress with Ansible
 ## Useful Links
   # for php installation >
   # https://www.cyberciti.biz/faq/how-to-install-php-7-2-on-centos-7-rhel-7/  
+  list of php packages:
+  php72-php-fpm php72-php-gd php72-php-json php72-php-mbstring php72-php-mysqlnd php72-php-xml         php72-php-xmlrpc php72-php-opcache
 
 ## README NEEDS TO BE UPDATED
 

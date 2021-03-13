@@ -19,12 +19,12 @@
   
 
 
-- name: Enable remi-php72 repository
+- name: Enable remi-php73 repository
   when: ansible_facts['hostname'] == "web-server"
   yum_repository:
     description: Extra Packages for Enterprise Linux 7 - $basearch
-    metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
-    name: remi-php72
+    mirrorlist: http://cdn.remirepo.net/enterprise/7/php73/mirror
+    name: remi-php73
     enabled: yes 
 
 - name: Updated Repository on web-server
@@ -33,12 +33,20 @@
     name: "*"
     state: latest 
 
-- name: Install PHP7.2
+- name: Install PHP7.3
   when: ansible_facts['hostname'] == "web-server"
   yum: 
     name: "{{php_package}}"
     state: present
     enablerepo: "remi-*,epel,base"
+
+# if you need the link you can you here. but in this case we do not need 
+#- name: Create Link for PHP   # we are creating the soft-link because when someone check th version the php. it is going to be easy :)) 
+#  when: ansible_facts['hostname'] == "web-server"
+#  file:
+#    src: /opt/remi/php72/root/usr/bin/php
+#    dest: /usr/bin/php
+#    state: link 
 
 
 - name: Download Wordpress - unarchive   # unarchive command will get the file from internet and download and unzip and save it under tmp
@@ -54,13 +62,13 @@
     src: /tmp/wordpress/
     dest: /var/www/html
     remote_src: yes
-    owner: apache
-    group: apache
+    owner: apache      # we have to check the status of apache ansible -i inventory.yaml web-server -m command  -a "systemctl status httpd"
+    group: apache      
 
 
     # You have to go "yum repos: On CentOS7"
     # Location: ""/etc/yum.repos.d/""  you have to check 
-    # error 1> if you get the error >  you have to add the metalink 
+    # error 1> if you get the error >  you have to add the metalink or mirrorlist very important just be careful :))
      # it comes from repository 
     # fatal: [web-server]: FAILED! => {"changed": false, "msg": "Parameter 'baseurl', 'metalink' or 'mirrorlist' is required."}
 
